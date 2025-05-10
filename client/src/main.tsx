@@ -6,6 +6,8 @@ import route from "./routes.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={route} />
+    <div className="max-w-md mx-auto h-screen" style={{ maxWidth: "390px" }}>
+      <RouterProvider router={route} />
+    </div>
   </StrictMode>
 );

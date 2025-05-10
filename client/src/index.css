@@ -1,4 +1,37 @@
 @import "tailwindcss";
+@import "tailwindcss";
 @plugin "daisyui" {
   themes: all;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #000;
+}
+
+/* Add this to ensure the app fits within the iPhone 14 frame */
+#root {
+  max-width: 390px;
+  margin: 0 auto;
+  height: 844px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Add shadow and glow effects */
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
