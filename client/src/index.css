@@ -35,3 +35,53 @@ body {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
+
+/* Image and icon color adjustments */
+.dragon-icon {
+  filter: brightness(1.2) contrast(1.1);
+  transition: all 0.3s ease;
+}
+
+.dragon-icon:hover {
+  filter: brightness(1.4) contrast(1.2);
+}
+
+.dragon-image {
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+}
+
+.dragon-image:hover {
+  opacity: 1;
+}
+
+/* Add a subtle glow effect to dragon images */
+.dragon-glow {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+}
+
+/* Adjust button icons to match theme */
+.theme-icon {
+  filter: invert(1) brightness(1.2);
+  transition: all 0.3s ease;
+}
+
+.theme-icon:hover {
+  filter: invert(1) brightness(1.4);
+}
+
+/* Add a subtle background overlay for better contrast */
+.image-overlay {
+  position: relative;
+}
+
+.image-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+  pointer-events: none;
+}

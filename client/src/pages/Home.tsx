@@ -1,185 +1,138 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../index.css";
+import FriendList from "../components/FriendList";
 
-const App: React.FC = () => {
+// Đường dẫn ảnh assets
+const dragonImg = "/src/assets/dragon - level 1.png";
+const bgImg = "/src/assets/background.png";
+const menuIcon = "/src/assets/menu.png";
+const userIcon = "/src/assets/user.png";
+const friendIcon = "/src/assets/friend button.png";
+const bagIcon = "/src/assets/tasks button.png";
+const shoppingIcon = "/src/assets/shopping button.png";
+const mailIcon = "/src/assets/mail button.png";
+const bellIcon = "/src/assets/notifications button.png";
+const dragonIcon = "/src/assets/dargon button.png";
+
+const Home: React.FC = () => {
+  const [coinBalance, setCoinBalance] = useState(0);
+  const [diamondBalance, setDiamondBalance] = useState(0);
+  const [chestCoins, setChestCoins] = useState(0);
+  const [lastClaimTime, setLastClaimTime] = useState<number | null>(null);
+  const [timer, setTimer] = useState("00:00:00");
+  const [showFriend, setShowFriend] = useState(false);
+
+  useEffect(() => {
+    const dragonLevel = 1;
+    const coinsPerMinute = dragonLevel;
+    const maxAccumulatedMinutes = 24 * 60;
+    const update = () => {
+      if (lastClaimTime === null) {
+        setLastClaimTime(Date.now());
+        setChestCoins(0);
+        setTimer("00:00:00");
+        return;
+      }
+      const elapsedMs = Date.now() - lastClaimTime;
+      const elapsedMinutes = elapsedMs / (1000 * 60);
+      const elapsedSeconds = Math.floor(elapsedMs / 1000);
+      const newChestCoins = Math.min(Math.floor(elapsedMinutes * coinsPerMinute), maxAccumulatedMinutes * coinsPerMinute);
+      setChestCoins(newChestCoins);
+      // Hiển thị timer dạng HH:mm:ss
+      const hours = Math.floor(elapsedSeconds / 3600);
+      const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+      const seconds = elapsedSeconds % 60;
+      setTimer(`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, [lastClaimTime]);
+
+  const claimChestCoins = () => {
+    setCoinBalance(prev => prev + chestCoins);
+    if (lastClaimTime !== null) {
+      const timeToAdd = chestCoins * 60 * 1000; // mỗi coin = 1 phút
+      let newLastClaimTime = lastClaimTime + timeToAdd;
+      if (newLastClaimTime > Date.now()) newLastClaimTime = Date.now();
+      setLastClaimTime(newLastClaimTime);
+    }
+    setChestCoins(0);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-between h-screen bg-gradient-to-b from-red-950 to-red-900 p-4 max-w-[390px] mx-auto">
-      {/* Top section with menu and user info */}
-      <div className="w-full flex justify-between items-center">
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-            <div className="flex items-center gap-1">
-              <span className="text-white">10 ncs</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-white"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="text-white">100.00</span>
+    <div className="flex flex-col items-center justify-between min-h-screen max-w-[390px] mx-auto relative p-0 overflow-hidden" style={{background: `url(${bgImg}) center/cover no-repeat`}}>
+      {/* Top bar */}
+      <div className="w-full flex justify-between items-center mt-2 mb-4 px-4 pt-4">
+        {/* Menu icon */}
+        <button className="rounded-full  shadow p-2">
+          <img src={menuIcon} alt="menu" className="w-8 h-8" />
+        </button>
+        {/* Balance */}
+        <div className="flex flex-col gap-1 items-center">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#3a2323cc] border border-[#fff2] shadow">
+            <img src="/src/assets/Coin button.png" alt="coin" className="w-6 h-6" />
+            <span className="text-white font-bold text-lg">{coinBalance.toFixed(2)}$</span>
           </div>
         </div>
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-            />
-          </svg>
-        </div>
+        {/* User icon */}
+        <button className="rounded-full shadow p-2">
+          <img src={userIcon} alt="user" className="w-8 h-8" />
+        </button>
       </div>
 
-      {/* Middle section with dragon character and menu buttons */}
-      <div className="flex flex-col items-center">
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-white rounded-full p-3 flex justify-center items-center shadow-md">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-red-900"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
+      {/* Main content */}
+      <div className="flex-1 flex flex-col items-center justify-center relative w-full">
+        <div className="flex flex-row items-center justify-center w-full max-w-[390px] gap-0 mt-4">
+          {/* Left icons */}
+          <div className="flex flex-col gap-8 items-center flex-1 mb-12">
+            <button className=" rounded-full p-5 shadow-md" >
+              <img src={bagIcon} alt="bag" className="w-12 h-12" />
+            </button>
+            <button className=" rounded-full p-5 shadow-md" >
+              <img src={shoppingIcon} alt="shopping" className="w-12 h-12" />
+            </button>
+            <button className=" rounded-full p-5 shadow-md" onClick={() => setShowFriend(true)}>
+              <img src={friendIcon} alt="friend" className="w-12 h-12" />
+            </button>
           </div>
-
-          <div className="relative">
-            <div className="border-4 border-red-600 rounded-lg p-2 bg-gradient-to-b from-red-800 to-red-900 shadow-lg">
-              {/* Replace with your dragon image */}
-              <img
-                src="/dragon.png"
-                alt="Dragon character"
-                className="w-24 h-24 object-contain"
-              />
+          {/* Dragon image */}
+          <div className="flex flex-col items-center flex-[2]">
+            <div className="border-2 border-[#d32f2f] rounded-2xl p-6 bg-[#2a0a0a]/80 shadow-lg relative">
+              <img src={dragonImg} alt="Dragon" className="w-58 h-54 object-contain" />
             </div>
-            {/* Add a glow effect */}
-            <div className="absolute inset-0 rounded-lg bg-red-500 opacity-20 blur-md -z-10"></div>
-          </div>
-
-          <div className="bg-white rounded-full p-3 flex justify-center items-center shadow-md">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-red-900"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-3 gap-4 mt-4">
-          <div className="bg-white rounded-full p-3 flex justify-center items-center shadow-md">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-red-900"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-              />
-            </svg>
-          </div>
-
-          <div className="flex items-center justify-center">
-            <div className="bg-purple-900 px-3 py-1.5 rounded-lg flex items-center shadow-md">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-white mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <span className="text-white text-sm font-medium">10:20:30</span>
+            {/* Timer */}
+            <div className="flex items-center gap-2 mt-2 bg-transparent relative">
+              <div className="relative">
+                <img src="/src/assets/chest.png" alt="timer" className="w-12 h-12" onClick={claimChestCoins} />
+                {chestCoins > 0 && (
+                  <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5 border-2 border-white shadow-lg min-w-[24px] text-center translate-x-1/2 -translate-y-1/2">
+                    {chestCoins}
+                  </span>
+                )}
+              </div>
+              <span className="text-red-800 text-2xl font-bold">{timer}</span>
             </div>
           </div>
-
-          <div className="bg-white rounded-full p-3 flex justify-center items-center shadow-md">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-red-900"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
+          {/* Right icons */}
+          <div className="flex flex-col gap-8 items-center flex-1 mb-12">
+            <button className=" rounded-full p-5 shadow-md">
+              <img src={dragonIcon} alt="dragon" className="w-12 h-12" />
+            </button>
+            <button className="rounded-full p-5 shadow-md">
+              <img src={mailIcon} alt="mail" className="w-12 h-12" />
+            </button>
+            <button className=" rounded-full p-5 shadow-md">
+              <img src={bellIcon} alt="bell" className="w-12 h-12" />
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Bottom hexagon button */}
-      <div className="mb-8 relative">
-        <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rotate-45 relative shadow-lg">
-          <div className="absolute inset-0 -rotate-45 flex items-center justify-center">
-            {/* You can add an icon here if needed */}
-          </div>
-        </div>
-        {/* Add a glow effect */}
-        <div className="absolute inset-0 bg-orange-500 opacity-30 blur-md -z-10 rotate-45"></div>
-      </div>
+      {/* Friend List Modal */}
+      <FriendList open={showFriend} onClose={() => setShowFriend(false)} />
     </div>
   );
 };
 
-export default App;
+export default Home;
