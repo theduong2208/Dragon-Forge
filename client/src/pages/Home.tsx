@@ -118,7 +118,7 @@ const Home: React.FC = () => {
           {/* Right icons */}
           <div className="flex flex-col gap-8 items-center flex-1 mb-12">
             <button className=" rounded-full p-5 shadow-md">
-              <img src={dragonIcon} alt="dragon" className="w-12 h-12" onClick={() => navigate('/dragon-merge')} />
+              <img src={dragonIcon} alt="dragon" className="w-12 h-12" onClick={() => navigate('/dragon-storage')} />
             </button>
             <button className="rounded-full p-5 shadow-md">
               <img src={mailIcon} alt="mail" className="w-12 h-12" onClick={() => navigate('/mail')} />

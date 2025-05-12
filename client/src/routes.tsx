@@ -5,8 +5,7 @@ import MissionPage from "./components/MissionPage";
 import ShopPage from "./components/ShopPage";
 import Notification from "./components/Notification";
 import Mail from "./components/Mail";
-import DragonMergeGame from "./components/DragonMergeGame";
-
+import DragonStorage from "./components/DragonStorage";
 const route = createBrowserRouter([
   {
     path: "/",
@@ -33,8 +32,8 @@ const route = createBrowserRouter([
     element: <Mail />,
   },
   {
-    path: "/dragon-merge",
-    element: <DragonMergeGame />,
+    path: "/dragon-storage",
+    element: <DragonStorage />,
   },
 ]);
 

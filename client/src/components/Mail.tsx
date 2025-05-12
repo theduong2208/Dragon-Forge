@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+
 const mails: any[] = [];
 
 const Mail: React.FC = () => {
