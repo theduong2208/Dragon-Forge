@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../index.css";
-import FriendList from "../components/FriendList";
 
 // Đường dẫn ảnh assets
 const dragonImg = "/src/assets/dragon - level 1.png";
@@ -8,11 +8,12 @@ const bgImg = "/src/assets/background.png";
 const menuIcon = "/src/assets/menu.png";
 const userIcon = "/src/assets/user.png";
 const friendIcon = "/src/assets/friend button.png";
-const bagIcon = "/src/assets/tasks button.png";
+const taskIcon = "/src/assets/tasks button.png";
 const shoppingIcon = "/src/assets/shopping button.png";
 const mailIcon = "/src/assets/mail button.png";
 const bellIcon = "/src/assets/notifications button.png";
 const dragonIcon = "/src/assets/dargon button.png";
+const bagIcon = "/src/assets/bag.png";
 
 const Home: React.FC = () => {
   const [coinBalance, setCoinBalance] = useState(0);
@@ -20,7 +21,7 @@ const Home: React.FC = () => {
   const [chestCoins, setChestCoins] = useState(0);
   const [lastClaimTime, setLastClaimTime] = useState<number | null>(null);
   const [timer, setTimer] = useState("00:00:00");
-  const [showFriend, setShowFriend] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const dragonLevel = 1;
@@ -87,13 +88,13 @@ const Home: React.FC = () => {
           {/* Left icons */}
           <div className="flex flex-col gap-8 items-center flex-1 mb-12">
             <button className=" rounded-full p-5 shadow-md" >
-              <img src={bagIcon} alt="bag" className="w-12 h-12" />
+              <img src={taskIcon} alt="task" className="w-12 h-12" onClick={() => navigate('/missions')} />
             </button>
             <button className=" rounded-full p-5 shadow-md" >
-              <img src={shoppingIcon} alt="shopping" className="w-12 h-12" />
+              <img src={friendIcon} alt="friend" className="w-12 h-12" onClick={() => navigate('/friends')} />
             </button>
-            <button className=" rounded-full p-5 shadow-md" onClick={() => setShowFriend(true)}>
-              <img src={friendIcon} alt="friend" className="w-12 h-12" />
+            <button className=" rounded-full p-5 shadow-md" onClick={() => navigate('/shop')}>
+              <img src={shoppingIcon} alt="shopping" className="w-12 h-12" />
             </button>
           </div>
           {/* Dragon image */}
@@ -117,20 +118,17 @@ const Home: React.FC = () => {
           {/* Right icons */}
           <div className="flex flex-col gap-8 items-center flex-1 mb-12">
             <button className=" rounded-full p-5 shadow-md">
-              <img src={dragonIcon} alt="dragon" className="w-12 h-12" />
+              <img src={dragonIcon} alt="dragon" className="w-12 h-12" onClick={() => navigate('/dragon-merge')} />
             </button>
             <button className="rounded-full p-5 shadow-md">
-              <img src={mailIcon} alt="mail" className="w-12 h-12" />
+              <img src={mailIcon} alt="mail" className="w-12 h-12" onClick={() => navigate('/mail')} />
             </button>
-            <button className=" rounded-full p-5 shadow-md">
-              <img src={bellIcon} alt="bell" className="w-12 h-12" />
+            <button className="rounded-full p-5 shadow-md">
+              <img src={bellIcon} alt="bell" className="w-12 h-12" onClick={() => navigate('/notification')} />
             </button>
           </div>
         </div>
       </div>
-
-      {/* Friend List Modal */}
-      <FriendList open={showFriend} onClose={() => setShowFriend(false)} />
     </div>
   );
 };
