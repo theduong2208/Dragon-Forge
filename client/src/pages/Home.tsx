@@ -66,7 +66,7 @@ const Home: React.FC = () => {
       {/* Top bar */}
       <div className="w-full flex justify-between items-center mt-2 mb-4 px-4 pt-4">
         {/* Menu icon */}
-        <button className="rounded-full  shadow p-2">
+        <button className="rounded-full shadow p-2" onClick={() => navigate('/user-info')}>
           <img src={menuIcon} alt="menu" className="w-8 h-8" />
         </button>
         {/* Balance */}
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
         </div>
         {/* User icon */}
         <button className="rounded-full shadow p-2">
-          <img src={userIcon} alt="user" className="w-8 h-8" />
+          <img src={userIcon} alt="user" className="w-8 h-8" onClick={() => navigate('/login')} />
         </button>
       </div>
 

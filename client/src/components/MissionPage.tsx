@@ -14,7 +14,7 @@ const dailyMissions: Mission[] = [
     title: "Add",
     desc: "Add dragon forge to your home screen.",
     reward: 100,
-    done: true,
+    done: false,
   },
   {
     title: "Training",
@@ -26,13 +26,13 @@ const dailyMissions: Mission[] = [
     title: "Subscribe",
     desc: "Subscribe our channel on Youtube, X and Fb",
     reward: 100,
-    done: true,
+    done: false,
   },
   {
     title: "Coin harvest",
     desc: "DragonCoin reach 1000",
     reward: 200,
-    done: true,
+    done: false,
     progress: "0/1000"
   },
 ];
@@ -42,7 +42,7 @@ const specialMissions: Mission[] = [
     title: "Upgrade",
     desc: "Upgrade your dragon",
     reward: 10,
-    done: true,
+    done: false,
   },
   {
     title: "Sign in",
@@ -54,19 +54,19 @@ const specialMissions: Mission[] = [
     title: "Receive dragon diamond",
     desc: "Click to receive your dragon diamond",
     reward: 10,
-    done: true,
+    done: false,
   },
   {
     title: "Receive DragonCoin",
     desc: "Click to receive your DragonCoin in home page",
     reward: 10,
-    done: true,
+    done: false,
   },
   {
     title: "Share",
     desc: "Share dragon forge 0/1",
     reward: 10,
-    done: true,
+    done: false,
   },
 ];
 
@@ -110,7 +110,15 @@ const MissionPage: React.FC = () => {
                   <img src="/src/assets/Coin button.png" alt="coin" className="w-6 h-6" />
                   <span className="font-bold text-base text-black">+{m.reward}</span>
                 </div>
-                <button className="ml-2 px-6 py-2 rounded-full bg-[#d3d3d3] text-[#6b4c3b] font-bold text-base cursor-default">Done</button>
+                <button 
+                  className={`ml-2 px-6 py-2 rounded-full font-bold text-base ${
+                    m.done 
+                      ? 'bg-[#d3d3d3] text-[#6b4c3b] cursor-default' 
+                      : 'bg-[#bfa59a] text-black hover:bg-[#a89088] cursor-pointer'
+                  }`}
+                >
+                  {m.done ? 'In Progress' : 'Claim'}
+                </button>
               </div>
               <div className="text-black text-base font-normal">{m.desc}</div>
               {m.progress && (
