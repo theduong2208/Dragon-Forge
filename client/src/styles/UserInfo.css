@@ -1,0 +1,99 @@
+.user-info-container {
+  padding: 20px;
+  background-color: #2a0a0a;
+  min-height: 100vh;
+  color: white;
+}
+
+.user-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-info-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-level {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+.user-stats {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  color: #a2b8be;
+}
+
+.stat-value {
+  font-weight: bold;
+}
+
+.user-playtime {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.user-playtime h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.playtime-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.user-actions {
+  margin-top: 20px;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.user-info-loading,
+.user-info-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #2a0a0a;
+  color: white;
+  font-size: 18px;
+}
+
+.user-info-error {
+  color: #ff6b6b;
+} 
